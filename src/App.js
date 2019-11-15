@@ -24,7 +24,7 @@ function App() {
 
 	return (
 	<ProductContext.Provider value={{ products, addItem }}>
-    	<CartContext.Provider value={{ cart }}>
+    	<CartContext.Provider value={ cart }>
 			<div className="App">
 			<Navigation />
 			{/* Routes */}
