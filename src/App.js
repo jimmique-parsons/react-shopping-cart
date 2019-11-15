@@ -7,15 +7,22 @@ import Navigation from './components/Navigation';
 import Products from './components/Products';
 import ShoppingCart from './components/ShoppingCart';
 
-function App() {
-	const [products] = useState(data);
-	const [cart, setCart] = useState([]);
+// Contexts
+import { ProductContext } from './contexts/ProductContext';
 
-	const addItem = item => {
-		// add the given item to the cart
-	};
+function App() {
+ // data is an array of product objects with id, title, price, and image props
+ 	const [products] = useState(data);
+ // keeps track of all the items in our cart
+ 	const [cart, setCart] = useState([]);
+
+ // takes in an item and adds it to our cart array
+ 	const addItem = item => {
+ 		setCart([...cart, item]);
+ 	};
 
 	return (
+	<ProductContext.Provider value={{ products, addItem }}>
 		<div className="App">
 			<Navigation cart={cart} />
 
@@ -23,12 +30,7 @@ function App() {
 			<Route
 				exact
 				path="/"
-				render={() => (
-					<Products
-						products={products}
-						addItem={addItem}
-					/>
-				)}
+	component={ Products }
 			/>
 
 			<Route
@@ -36,7 +38,9 @@ function App() {
 				render={() => <ShoppingCart cart={cart} />}
 			/>
 		</div>
-	);
-}
+    </ProductContext.Provider>
+ 	);
+ }
+
 
 export default App;
